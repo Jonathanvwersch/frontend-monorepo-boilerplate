@@ -1,0 +1,23 @@
+{
+  "name": "frontend_monorepo",
+  "version": "1.0.0",
+  "description": "A starter pack for a frontend monorepo",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "packageManager": "pnpm@8.14.0",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "^8.1.0",
+    "turbo": "^2.0.6"
+  },
+  "dependencies": {}
+}

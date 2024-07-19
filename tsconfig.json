@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "allowJs": false,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "lib": ["esnext", "dom"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "incremental": true,
+    "strict": true,
+    "target": "esnext"
+  }
+}
