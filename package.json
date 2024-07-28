@@ -1,11 +1,21 @@
 {
-  "name": "frontend_monorepo",
+  "name": "frontend-monorepo",
   "version": "1.0.0",
   "description": "A starter pack for a frontend monorepo",
   "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean:all": "find . -type d \\( -name 'dist' -o -name 'node_modules' -o -name '.next' -o -name '.turbo' -o -name '.tsup' \\) -exec rm -rf {} +; find . -type f -name '*.tsbuildinfo' -exec rm -f {} +",
+    "clean:build": "find apps/ packages/ -type d \\( -name 'dist' -o -name '.next' -o -name '.turbo' -o -name '.tsup' \\) -exec rm -rf {} +; find apps/ packages/ -type f -name '*.tsbuildinfo' -exec rm -f {} +",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts:type-check": "turbo run ts:type-check --concurrency=99 --continue",
+    "ts:lint": "turbo run ts:lint --concurrency=99 --continue",
+    "ts:lint:fix": "pnpm run ts:lint -- --fix",
+    "turbo:clean": "turbo daemon clean",
+    "build": "turbo run build --concurrency=99 --continue",
+    "build:dev": "turbo run build:dev --concurrency=99 --continue",
+    "dev": "turbo run dev --concurrency=99 --continue",
+    "update:deps": "npx npm-check-updates -ws --root -u && pnpm install"
   },
   "type": "module",
   "workspaces": [
@@ -16,8 +26,20 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "tsup": "^8.1.0",
-    "turbo": "^2.0.6"
-  },
-  "dependencies": {}
+    "@jest/types": "^29.6.3",
+    "@typescript-eslint/eslint-plugin": "^7.17.0",
+    "@typescript-eslint/parser": "^7.17.0",
+    "chokidar": "^3.6.0",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.35.0",
+    "@microsoft/api-extractor": "^7.47.4",
+    "prettier": "^3.3.3",
+    "readline-sync": "^1.4.10",
+    "tsup": "^8.2.3",
+    "turbo": "^2.0.9",
+    "typescript": "^5.5.4"
+  }
 }

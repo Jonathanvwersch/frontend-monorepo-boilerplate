@@ -1,5 +1,9 @@
 packages:
   # include packages in subfolders (change as required)
-  - "apps/**"
-  - "packages/**"
+  - "apps/*"
+  - "packages/*"
   # if required, exclude directories
+
+# Enable hoisting of dependencies to the root node_modules
+hoistPattern:
+  - "*"

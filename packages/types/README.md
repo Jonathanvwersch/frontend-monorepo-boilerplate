@@ -1,0 +1,1 @@
+<h1 align="center">@frontend-monorepo/types</h1>

@@ -1,7 +1,6 @@
 {
-  "name": "@frontend-monorepo/constants",
+  "name": "@frontend-monorepo/types",
   "version": "1.0.0",
-  "description": "A set of constants used across the frontend monorepo",
   "sideEffects": false,
   "license": "ISC",
   "scripts": {
@@ -10,8 +9,11 @@
     "ts:lint:fix": "pnpm run ts:lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsup",
-    "build:dev": "NODE_ENV=development tsup",
+    "build:dev": "NODE_ENV=development pnpm run build",
     "dev": "NODE_ENV=development node ../watch.js"
+  },
+  "dependencies": {
+    "@frontend-monorepo/constants": "workspace:*"
   },
   "exports": {
     "./*": {

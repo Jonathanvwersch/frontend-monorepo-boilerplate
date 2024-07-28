@@ -1,0 +1,1 @@
+<h1 align="center">@frontend-monorepo/design-system</h1>
