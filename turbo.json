@@ -13,12 +13,16 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**", ".tsbuildinfo"]
     },
-    "build:dev": {
-      "dependsOn": ["^build:dev"],
+    "build:packages": {
+      "dependsOn": ["^build:packages"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", ".tsbuildinfo"]
+    },
+    "build:packages:dev": {
+      "dependsOn": ["^build:packages:dev"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**", ".tsbuildinfo"]
     },
     "dev": {
-      "dependsOn": ["^build:dev"],
+      "dependsOn": ["^build:packages:dev"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**", ".tsbuildinfo"]
     }
   }

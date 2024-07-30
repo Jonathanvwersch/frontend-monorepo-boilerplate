@@ -13,9 +13,10 @@
     "ts:lint:fix": "pnpm run ts:lint -- --fix",
     "turbo:clean": "turbo daemon clean",
     "build": "turbo run build --concurrency=99 --continue",
-    "build:dev": "turbo run build:dev --concurrency=99 --continue",
+    "build:packages": "turbo run build:packages --concurrency=99 --continue",
     "dev": "turbo run dev --concurrency=99 --continue",
-    "update:deps": "npx npm-check-updates -ws --root -u && pnpm install"
+    "update:deps": "npx npm-check-updates -ws --root -u && pnpm install",
+    "create-package": "node create-package.js"
   },
   "type": "module",
   "workspaces": [
@@ -27,10 +28,10 @@
   "license": "ISC",
   "devDependencies": {
     "@jest/types": "^29.6.3",
-    "@typescript-eslint/eslint-plugin": "^7.17.0",
-    "@typescript-eslint/parser": "^7.17.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "chokidar": "^3.6.0",
-    "eslint": "^9.7.0",
+    "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.2.1",
@@ -39,7 +40,7 @@
     "prettier": "^3.3.3",
     "readline-sync": "^1.4.10",
     "tsup": "^8.2.3",
-    "turbo": "^2.0.9",
+    "turbo": "^2.0.10",
     "typescript": "^5.5.4"
   }
 }
