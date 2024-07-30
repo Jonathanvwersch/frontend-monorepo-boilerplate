@@ -28,7 +28,8 @@ const packageJson = {
     "ts:lint:fix": "pnpm run ts:lint -- --fix",
     test: 'echo "Error: no test specified" && exit 1',
     build: "tsup",
-    "build:dev": "NODE_ENV=development pnpm run build",
+    "build:packages": "pnpm run build",
+    "build:packages:dev": "NODE_ENV=development pnpm run build",
     dev: "NODE_ENV=development node ../watch.js",
   },
   exports: {
