@@ -23,14 +23,14 @@
     "packages/*",
     "apps/*"
   ],
-  "packageManager": "pnpm@8.14.0",
+  "packageManager": "pnpm@9.6.0",
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@jest/types": "^29.6.3",
     "@microsoft/api-extractor": "^7.47.4",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
     "chokidar": "^3.6.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
@@ -41,7 +41,7 @@
     "prettier": "^3.3.3",
     "readline-sync": "^1.4.10",
     "tsup": "^8.2.3",
-    "turbo": "^2.0.10",
+    "turbo": "^2.0.11",
     "typescript": "^5.5.4"
   }
 }
