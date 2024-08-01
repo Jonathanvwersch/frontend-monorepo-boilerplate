@@ -1,1 +1,3 @@
-# Frontend Monorepo Boilerplate TypeScript / Tailwind / Material UI
+# Frontend Monorepo Boilerplate
+
+## Typescript / Tsup / Turbo
