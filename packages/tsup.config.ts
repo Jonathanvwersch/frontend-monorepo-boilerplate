@@ -1,20 +1,23 @@
 import { spawnSync } from "child_process";
+import * as glob from "glob";
 import { defineConfig } from "tsup";
 
 const env = process.env.NODE_ENV ?? "production";
-const entries = ["src/**/*.{ts,tsx}", "!src/**/*.spec.{ts,tsx}"];
+
+const entries = glob.sync("./src/**/*.{ts,tsx}", {
+  ignore: "**/*.spec.{ts,tsx}",
+});
+
 const isWatchMode = process.argv.includes("--watch");
 const tscParams = ["--emitDeclarationOnly", "--incremental"];
 
-if (isWatchMode) {
-  console.info("Watching for package changes...");
-} else {
+let initialRunComplete = false;
+
+if (!isWatchMode) {
   console.info("Building package...");
+  console.info(`Environment: ${env}`);
+  console.info("-------------------------------------------");
 }
-
-console.info(`Environment: ${env}`);
-console.info("-------------------------------------------");
-
 /**
  * Generate types on success of the build step as opposed to using tsup's built-in
  * type generation tool (activated by setting dts to true) due to limitations with
@@ -26,12 +29,16 @@ console.info("-------------------------------------------");
  * and avoid potential issues that might arise from using tsup's built-in feature.
  */
 export default defineConfig(() => ({
-  dts: false,
+  dts: false, // Disable tsup's dts generation
   onSuccess: async () => {
     const start = Date.now();
     try {
       if (isWatchMode) {
-        console.info("Changes detected; rebuilding...");
+        if (initialRunComplete) {
+          console.info("Changes detected; rebuilding...");
+        } else {
+          console.info("Performing initial build step...");
+        }
       }
       console.info("Build successful");
       console.info("Generating type files...");
@@ -60,6 +67,7 @@ export default defineConfig(() => ({
         console.error("Failed to generate declaration files:", e);
       }
     }
+    initialRunComplete = true;
   },
   entry: entries,
   silent: true,
