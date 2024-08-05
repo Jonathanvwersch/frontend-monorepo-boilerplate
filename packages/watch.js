@@ -1,4 +1,14 @@
 /* eslint-env node */
+/**
+ * Watch script to extend tsup's watch mode
+ *
+ * The script runs in conjunction with tsup's watch mode, and is responsible for dealing with limitations with tsup's watch mode.
+ * It adds the following features:
+ * - Reconciliation of src and dist directories when the watcher is killed
+ * - Restarting of tsup when files and directories are added, so they can be watched
+ * - Cleanup of type generation cache after the build is complete
+ *
+ */
 import { spawn } from "child_process";
 import fs from "fs/promises";
 import path from "path";
