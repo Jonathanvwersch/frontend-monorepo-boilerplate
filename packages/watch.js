@@ -27,23 +27,14 @@ console.info("-------------------------------------------");
 let tsupProcess = null;
 
 function startTsup() {
-  if (tsupProcess) tsupProcess.kill();
+  tsupProcess?.kill();
   tsupProcess = spawn("tsup", ["--watch"], {
-    stdio: ["pipe", "pipe", "pipe"],
+    stdio: "pipe",
     shell: true,
     env: { ...process.env, NODE_ENV: "development" },
   });
-  tsupProcess.stdout.on("data", (data) => process.stdout.write(data));
-  tsupProcess.stderr.on("data", (data) => {
-    const errorString = data.toString();
-    if (
-      !errorString.includes("cannot be marked as external") &&
-      !errorString.includes("ESM Build failed")
-    )
-      process.stderr.write(data);
-  });
   tsupProcess.on("close", (code) => {
-    if (code !== null && code !== 0 && !tsupProcess.killed)
+    if (code && !tsupProcess.killed)
       console.error(`tsup process exited with code ${code}`);
     tsupProcess = null;
   });
