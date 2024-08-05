@@ -1,5 +1,5 @@
 {
-  "name": "@frontend-monorepo/design-system",
+  "name": "@frontend-monorepo/react-design-system",
   "version": "1.0.0",
   "license": "ISC",
   "scripts": {

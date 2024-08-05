@@ -1,7 +1,7 @@
 "use client";
 
+import { Button } from "@frontend-monorepo/react-design-system/button";
 import Image from "next/image";
-import { Button } from "@frontend-monorepo/design-system/button";
 
 export default function Home() {
   return (

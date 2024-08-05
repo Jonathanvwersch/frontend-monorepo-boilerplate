@@ -7,7 +7,6 @@
     "preinstall": "npx only-allow pnpm",
     "clean:all": "find . -type d \\( -name 'dist' -o -name 'node_modules' -o -name '.next' -o -name '.turbo' -o -name '.tsup' \\) -exec rm -rf {} +; find . -type f -name '*.tsbuildinfo' -exec rm -f {} +",
     "clean:build": "find apps/ packages/ -type d \\( -name 'dist' -o -name '.next' -o -name '.turbo' -o -name '.tsup' \\) -exec rm -rf {} +; find apps/ packages/ -type f -name '*.tsbuildinfo' -exec rm -f {} +",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "ts:type-check": "turbo run ts:type-check --concurrency=99 --continue",
     "ts:lint": "turbo run ts:lint --concurrency=99 --continue",
     "ts:lint:fix": "pnpm run ts:lint -- --fix",
@@ -25,7 +24,11 @@
   ],
   "packageManager": "pnpm@9.6.0",
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jonathanvwersch/frontend-monorepo-boilerplateo"
+  },
   "devDependencies": {
     "@jest/types": "^29.6.3",
     "@microsoft/api-extractor": "^7.47.4",

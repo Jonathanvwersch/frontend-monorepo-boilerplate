@@ -6,14 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ts:type-check": "tsc --incremental --pretty",
+    "ts:lint": "eslint \"src/**/*.{js,ts,jsx,tsx}\" --max-warnings=0 --color",
+    "ts:lint:fix": "pnpm run ts:lint -- --fix"
   },
   "dependencies": {
     "react": "^18",
     "react-dom": "^18",
     "next": "14.2.5",
     "@frontend-monorepo/constants": "workspace:*",
-    "@frontend-monorepo/design-system": "workspace:*"
+    "@frontend-monorepo/react-design-system": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22",
