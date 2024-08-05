@@ -2,26 +2,25 @@
 /**
  * Watch script to extend tsup's watch mode
  *
- * The script runs in conjunction with tsup's watch mode, and is responsible for dealing with limitations with tsup's watch mode.
+ * The script runs in conjunction with tsup's watch mode, and is responsible for dealing with its limitations
  * It adds the following features:
  * - Reconciliation of src and dist directories when the watcher is killed
  * - Restarting of tsup when files and directories are added, so they can be watched
  * - Cleanup of type generation cache after the build is complete
  *
  */
-import { spawn } from "child_process";
-import fs from "fs/promises";
-import path from "path";
+import { spawn } from "node:child_process";
+import fs from "node:fs/promises";
+import path from "node:path";
 import { watch } from "chokidar";
 
 const cwd = process.cwd();
 const srcDir = path.join(cwd, "src");
 const distDir = path.join(cwd, "dist");
 const tsBuildInfoDir = path.join(cwd, ".tsbuildinfo");
-const env = process.env.NODE_ENV ?? "production";
 
 console.info("Watching for package changes...");
-console.info(`Environment: ${env}`);
+console.info(`Environment: development`);
 console.info("-------------------------------------------");
 
 let tsupProcess = null;
@@ -34,8 +33,9 @@ function startTsup() {
     env: { ...process.env, NODE_ENV: "development" },
   });
   tsupProcess.on("close", (code) => {
-    if (code && !tsupProcess.killed)
+    if (code && !tsupProcess.killed) {
       console.error(`tsup process exited with code ${code}`);
+    }
     tsupProcess = null;
   });
 }
