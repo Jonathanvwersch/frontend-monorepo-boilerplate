@@ -8,6 +8,7 @@ Frontend monorepo with a focus on scalability and developer experience
   currently imports code from the react-design-system package to demonstrate how to import code from a package.
 - Packages folder containing all shared code, which can be extended to include any other package using the create-package command. The folder
   currently contains three example packages, which import code from one another.
+- A create package script to easily allow for the creation of new packages using prompts
 - Fully managed build setup using [Turborepo](https://turborepo.org/), [TypeScript](https://github.com/microsoft/TypeScript), [Tsup](https://github.com/egoist/tsup), and a custom watch script--watch.js-- to extend tsup's watch mode
 - Pnpm instead of Npm to reduce disk space usage and improve performance
 - Build to scale: this structure has been tested on monorepos with many apps and packages, and can handle the scale involved in building the packages, and emitting their types
