@@ -148,6 +148,18 @@ watcher
       startTsup();
     }, "Restarting tsup due to directory addition")
   )
+  .on("unlink", () => {
+    debounceAction(() => {
+      cleanUpTsbuild();
+      startTsup();
+    }, "Restarting tsup due to file deletion");
+  })
+  .on("unlinkDir", () =>
+    debounceAction(() => {
+      cleanUpTsbuild();
+      startTsup();
+    }, "Restarting tsup due to directory deletion")
+  )
   .on("error", (error) => console.error(`Watcher error: ${error}`));
 
 function cleanUpTsbuild() {
