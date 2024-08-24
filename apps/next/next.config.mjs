@@ -5,6 +5,9 @@ const nextConfig = {
     "@frontend-monorepo/constants",
     "@frontend-monorepo/types",
   ],
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
 };
 
 export default nextConfig;

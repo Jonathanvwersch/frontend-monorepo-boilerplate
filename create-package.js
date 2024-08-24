@@ -48,7 +48,6 @@ const tsconfig = {
     baseUrl: "./",
     outDir: "dist",
     rootDir: "src",
-    tsBuildInfoFile: ".tsbuildinfo",
   },
   extends: "../../tsconfig.json",
   include: ["src/*"],

@@ -9,8 +9,17 @@ const config: Linter.Config = {
     "plugin:import/recommended",
     "plugin:import/typescript",
     "prettier",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
   ],
-  plugins: ["@typescript-eslint", "react", "import", "prettier"],
+  plugins: [
+    "@typescript-eslint",
+    "react",
+    "import",
+    "prettier",
+    "react-hooks",
+    "jsx-a11y",
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2020,
@@ -63,6 +72,9 @@ const config: Linter.Config = {
         ],
       },
     ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/anchor-is-valid": "error",
   },
   overrides: [
     {

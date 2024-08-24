@@ -9,9 +9,13 @@ const entries = glob.sync("./src/**/*.{ts,tsx}", {
 });
 
 const isWatchMode = process.argv.includes("--watch");
-const tscParams = ["--emitDeclarationOnly", "--incremental"];
+const tscParams = ["--emitDeclarationOnly"];
 
 let initialRunComplete = false;
+
+if (isWatchMode) {
+  tscParams.push("--incremental");
+}
 
 if (!isWatchMode) {
   console.info("Building package...");

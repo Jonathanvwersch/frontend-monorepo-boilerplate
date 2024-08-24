@@ -1,3 +1,5 @@
+// @ts-check
+/** @typedef {import('child_process').ChildProcess} ChildProcess */
 /* eslint-env node */
 /**
  * Watch script to extend tsup's watch mode
@@ -11,16 +13,20 @@
  */
 import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { watch } from "chokidar";
 
 const cwd = process.cwd();
 const srcDir = path.join(cwd, "src");
 const distDir = path.join(cwd, "dist");
-const tsBuildInfoDir = path.join(cwd, ".tsbuildinfo");
+const tsBuildInfoDir = path.join(cwd, "tsconfig.tsbuildinfo");
 
 console.info("Watching for package changes...");
 console.info(`Environment: development`);
+console.info(
+  "Using incremental compilation; types are cached in tsconfig.tsbuildinfo"
+);
 console.info("-------------------------------------------");
 
 let tsupProcess = null;
@@ -114,6 +120,18 @@ async function removeDir(dirPath) {
 
 startTsup();
 
+const debounceTime = 300; // ms
+
+let debounceActionId;
+function debounceAction(action, reason) {
+  clearTimeout(debounceActionId);
+  debounceActionId = setTimeout(() => {
+    console.info(reason);
+    console.info("-------------------------------------------");
+    action();
+  }, debounceTime);
+}
+
 const watcher = watch(["**/*.{ts,tsx}", "**/.*", "**/*/", "!node_modules/**"], {
   cwd: srcDir,
   persistent: true,
@@ -124,16 +142,6 @@ const watcher = watch(["**/*.{ts,tsx}", "**/.*", "**/*/", "!node_modules/**"], {
     pollInterval: 100,
   },
 });
-
-let debounceActionId;
-function debounceAction(action, reason) {
-  clearTimeout(debounceActionId);
-  debounceActionId = setTimeout(() => {
-    console.info(reason);
-    console.info("-------------------------------------------");
-    action();
-  }, 500);
-}
 
 watcher
   .on("add", () => {
@@ -163,7 +171,9 @@ watcher
   .on("error", (error) => console.error(`Watcher error: ${error}`));
 
 function cleanUpTsbuild() {
-  fs.unlink(tsBuildInfoDir).catch(() => {});
+  if (existsSync(tsBuildInfoDir)) {
+    fs.unlink(tsBuildInfoDir).catch(() => {});
+  }
 }
 
 process.on("SIGINT", async () => {
