@@ -30,19 +30,35 @@ console.info(
 console.info("-------------------------------------------");
 
 let tsupProcess = null;
+let hasDiedAndIsWaitingForChange = false;
+let isShuttingDown = false;
 
 function startTsup() {
-  tsupProcess?.kill();
+  if (tsupProcess) {
+    tsupProcess?.kill();
+  }
+
+  if (hasDiedAndIsWaitingForChange) {
+    console.log(
+      "Changes detected. Attempting to restart tsup after it has crashed..."
+    );
+    hasDiedAndIsWaitingForChange = false;
+  }
+
   tsupProcess = spawn("tsup", ["--watch"], {
     stdio: "pipe",
     shell: true,
     env: { ...process.env, NODE_ENV: "development" },
   });
+
   tsupProcess.on("close", (code) => {
-    if (code && !tsupProcess.killed) {
-      console.error(`tsup process exited with code ${code}`);
+    if (isShuttingDown && !tsupProcess?.killed && code !== 0) {
+      console.error(`tsup process exited unexpectedly with code ${code}`);
+      console.log(
+        "tsup has encounter an error. Resolve the underlying issue outputted in the console. The watcher will restart tsup after changes are detected."
+      );
+      hasDiedAndIsWaitingForChange = false;
     }
-    tsupProcess = null;
   });
 }
 
@@ -144,6 +160,14 @@ const watcher = watch(["**/*.{ts,tsx}", "**/.*", "**/*/", "!node_modules/**"], {
 });
 
 watcher
+  .on("change", () => {
+    if (hasDiedAndIsWaitingForChange) {
+      debounceAction(() => {
+        cleanUpTsbuild();
+        startTsup();
+      }, "Restarting tsup due to file change after crash");
+    }
+  })
   .on("add", () => {
     debounceAction(() => {
       cleanUpTsbuild();
